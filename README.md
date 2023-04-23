@@ -18,6 +18,7 @@ Cristian Gonzalo Vera
 ##  #Scrum team
 ###  Product owner
 ###  Scrum master
+- Ramiro Fábrega
 ###  Development team
 
 ## #Video presentación
