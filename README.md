@@ -10,6 +10,7 @@ Tecnicatura en Telecomunicaciones ISPC.
 - Ramiro Fabrega
 - Candela Saintgirons
 - Paulo Daniel Rios
+- Marcia Elizabeth Villablanca Rodas
 
 
 ## #Docente
