@@ -11,6 +11,7 @@ Tecnicatura en Telecomunicaciones ISPC.
 - Candela Saintgirons
 - Paulo Daniel Rios
 - Baltazar Ferreyra
+- Fernando Pajon 
 
 
 ## #Docente
