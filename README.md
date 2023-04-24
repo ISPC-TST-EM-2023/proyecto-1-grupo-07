@@ -10,7 +10,7 @@ Tecnicatura en Telecomunicaciones ISPC.
 - Ramiro Fabrega
 - Candela Saintgirons
 - Paulo Daniel Rios
-- Marcia Elizabeth Villablanca Rodas
+- Marcia Elizabeth Villablanca Rodas || Estudiante de ingenieria industrial
 
 
 ## #Docente
