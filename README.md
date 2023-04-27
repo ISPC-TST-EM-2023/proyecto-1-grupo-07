@@ -27,10 +27,6 @@ Cristian Gonzalo Vera
 <!-- YT:START -->
 - [Video - Presentación Grupal][video1]
 
-<!-- YT:END -->
-
-
----
 [video1]: https://
 
 
