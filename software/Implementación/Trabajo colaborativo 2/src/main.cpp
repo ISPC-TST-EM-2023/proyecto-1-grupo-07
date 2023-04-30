@@ -5,7 +5,7 @@
 
 
 // Reemplace con sus credenciales de red
-const char* ssid = "Fibertel WiFi236 2.4GHz";
+const char* ssid = "Fibertel WiFi032 2.4GHz";
 const char* password = "0041846457";
 
 // Set web server port number to 80
@@ -14,14 +14,40 @@ WiFiServer server(80);
 // Variable to store the HTTP request
 String header;
 
-// Auxiliar variables to store the current output state
+// defino los pines como entradas Analógicas
+#define pna_1 32
+#define pna_2 33
+#define pna_3 34
+#define pna_4 35
+
+// defino los pines como entradas Digitales
+// pines del 34 al 39 no tienen resistencia PULLUP
+#define but_1 2
+#define but_2 16
+#define but_3 21
+#define but_4 23
+
+
+#define DELAY_BTN 550   // 500ms
+
+// Variables auxiliares para almacenar el estado de salida actual
 String output26State = "off";
 String output27State = "off";
+String output28State = "off";
+String output29State = "off";
 
 // Assign output variables to GPIO pins
 const int output26 = 26;
 const int output27 = 27;
+const int output28 = 23;
+const int output29 = 25;
 
+void funcion1 (){
+digitalWrite(output26, HIGH);
+digitalWrite(output27, HIGH);
+digitalWrite(output28, HIGH);
+digitalWrite(output29, HIGH);
+  }
 // Current time
 unsigned long currentTime = millis();
 // Previous time
@@ -34,9 +60,13 @@ void setup() {
   // Initialize the output variables as outputs
   pinMode(output26, OUTPUT);
   pinMode(output27, OUTPUT);
+  pinMode(output28, OUTPUT);
+  pinMode(output29, OUTPUT);
   // Set outputs to LOW
   digitalWrite(output26, LOW);
   digitalWrite(output27, LOW);
+  digitalWrite(output28, LOW);
+  digitalWrite(output29, LOW);
 
   // Connect to Wi-Fi network with SSID and password
   Serial.print("Connecting to ");
@@ -84,20 +114,24 @@ void loop(){
               Serial.println("GPIO 26 on");
               output26State = "on";
               digitalWrite(output26, HIGH);
+              digitalWrite(output28, HIGH);
             } else if (header.indexOf("GET /26/off") >= 0) {
               Serial.println("GPIO 26 off");
               output26State = "off";
               digitalWrite(output26, LOW);
+              digitalWrite(output28, LOW);
             } 
             
             else if (header.indexOf("GET /27/on") >= 0) {
               Serial.println("GPIO 27 on");
               output27State = "on";
               digitalWrite(output27, HIGH);
+              digitalWrite(output29, HIGH);
             } else if (header.indexOf("GET /27/off") >= 0) {
               Serial.println("GPIO 27 off");
               output27State = "off";
               digitalWrite(output27, LOW);
+              digitalWrite(output29, LOW);
             }
             
             // Display the HTML web page
@@ -122,7 +156,6 @@ void loop(){
             } else {
               client.println("<p><a href=\"/26/off\"><button class=\"button button2\">OFF</button></a></p>");
             } 
-               
             // Display current state, and ON/OFF buttons for GPIO 27  
             client.println("<p>GPIO 27 - State " + output27State + "</p>");
             // If the output27State is off, it displays the ON button       
@@ -131,7 +164,25 @@ void loop(){
             } else {
               client.println("<p><a href=\"/27/off\"><button class=\"button button2\">OFF</button></a></p>");
             }
+            
             client.println("</body></html>");
+
+              // Configuramos las entradas digitales como interrupciones
+  pinMode(but_1, INPUT_PULLUP);       // INPUT_PULLDOWN/INPUT_PULLUP
+  pinMode(but_2, INPUT_PULLUP);       // INPUT_PULLDOWN/INPUT_PULLUP
+  pinMode(but_3, INPUT_PULLUP);       // INPUT_PULLDOWN/INPUT_PULLUP
+  pinMode(but_4, INPUT_PULLUP);       // INPUT_PULLDOWN/INPUT_PULLUP
+
+  //llamo a la función led con cada interrupción
+  // RISING: cambia de LOW a HIGH cuando apretamos el boton
+  // FALLING: cambia de HIGH a LOW cuando apretamos el boton
+  // CHANGE: Cambia como apretar el boton como al soltarlo
+
+  attachInterrupt(but_1, funcion1, RISING);  // LOW/HIGH/FALLING/RISING/CHANGE
+  attachInterrupt(but_2, funcion1, RISING);  // LOW/HIGH/FALLING/RISING/CHANGE  
+  attachInterrupt(but_3, funcion1, RISING);  // LOW/HIGH/FALLING/RISING/CHANGE
+  attachInterrupt(but_4, funcion1, RISING);  // LOW/HIGH/FALLING/RISING/CHANGE 
+
             
             // The HTTP response ends with another blank line
             client.println();
