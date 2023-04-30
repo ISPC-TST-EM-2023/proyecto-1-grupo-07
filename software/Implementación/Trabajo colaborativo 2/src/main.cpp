@@ -68,6 +68,22 @@ void setup() {
   digitalWrite(output28, LOW);
   digitalWrite(output29, LOW);
 
+                // Configuramos las entradas digitales como interrupciones
+  pinMode(but_1, INPUT_PULLUP);       // INPUT_PULLDOWN/INPUT_PULLUP
+  pinMode(but_2, INPUT_PULLUP);       // INPUT_PULLDOWN/INPUT_PULLUP
+  pinMode(but_3, INPUT_PULLUP);       // INPUT_PULLDOWN/INPUT_PULLUP
+  pinMode(but_4, INPUT_PULLUP);       // INPUT_PULLDOWN/INPUT_PULLUP
+
+  //llamo a la función led con cada interrupción
+  // RISING: cambia de LOW a HIGH cuando apretamos el boton
+  // FALLING: cambia de HIGH a LOW cuando apretamos el boton
+  // CHANGE: Cambia como apretar el boton como al soltarlo
+
+  attachInterrupt(but_1, funcion1, RISING);  // LOW/HIGH/FALLING/RISING/CHANGE
+  attachInterrupt(but_2, funcion1, RISING);  // LOW/HIGH/FALLING/RISING/CHANGE  
+  attachInterrupt(but_3, funcion1, RISING);  // LOW/HIGH/FALLING/RISING/CHANGE
+  attachInterrupt(but_4, funcion1, RISING);  // LOW/HIGH/FALLING/RISING/CHANGE
+
   // Connect to Wi-Fi network with SSID and password
   Serial.print("Connecting to ");
   Serial.println(ssid);
@@ -167,21 +183,6 @@ void loop(){
             
             client.println("</body></html>");
 
-              // Configuramos las entradas digitales como interrupciones
-  pinMode(but_1, INPUT_PULLUP);       // INPUT_PULLDOWN/INPUT_PULLUP
-  pinMode(but_2, INPUT_PULLUP);       // INPUT_PULLDOWN/INPUT_PULLUP
-  pinMode(but_3, INPUT_PULLUP);       // INPUT_PULLDOWN/INPUT_PULLUP
-  pinMode(but_4, INPUT_PULLUP);       // INPUT_PULLDOWN/INPUT_PULLUP
-
-  //llamo a la función led con cada interrupción
-  // RISING: cambia de LOW a HIGH cuando apretamos el boton
-  // FALLING: cambia de HIGH a LOW cuando apretamos el boton
-  // CHANGE: Cambia como apretar el boton como al soltarlo
-
-  attachInterrupt(but_1, funcion1, RISING);  // LOW/HIGH/FALLING/RISING/CHANGE
-  attachInterrupt(but_2, funcion1, RISING);  // LOW/HIGH/FALLING/RISING/CHANGE  
-  attachInterrupt(but_3, funcion1, RISING);  // LOW/HIGH/FALLING/RISING/CHANGE
-  attachInterrupt(but_4, funcion1, RISING);  // LOW/HIGH/FALLING/RISING/CHANGE 
 
             
             // The HTTP response ends with another blank line
